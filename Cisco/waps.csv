@@ -1,0 +1,5 @@
+ip,hostname,domainname,ssid,channel,key
+172.16.22.8,C2702-AP09,school.local,WillowTree,11,hometime
+172.16.22.9,C2702-AP10,school.local,WillowTree,11,hometime
+172.16.22.10,C2702-AP11,school.local,WillowTree,11,hometime
+172.16.22.11,C2702-AP12,school.local,WillowTree,11,hometime
