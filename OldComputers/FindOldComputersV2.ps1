@@ -2,13 +2,13 @@
 
 #### Fill This bit in ############################################
 
-$logondate = (Get-Date).AddDays(-120) # The 120 is the number of days from today since the last logon.
+$logondate = (Get-Date).AddDays(-90) # The 120 is the number of days from today since the last logon.
 $action="find" # Set action to "find" "disable" or "delete"
 $move="no" # Move to Archive OU?
-$ArchiveOU="OU=Archive,OU=Computers,OU=Curriculum,DC=pudseylowtown,DC=local"
+$ArchiveOU="OU=***Computer Accounts to Check***,DC=Blackgatescurr,DC=local"
 $description = "Disabled by AT on $date."
 ##################################################################
-Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $logondate} | FT Name,lastLogonDate
+Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $logondate} |Sort-Object lastLogonDate| FT Name,lastLogonDate
 $m=Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $logondate} | measure
 write-host "Accounts Found : " $m.Count
 
