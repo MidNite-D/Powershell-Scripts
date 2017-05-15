@@ -24,7 +24,7 @@ if($Monthly.hotfixid -eq $KB -or $Security.hotfixid -eq $KB2)
 }
 ##  Check for Patch 
 
-if($OS.Caption -eq "Microsoft Windows Server 2008 R2 Standard")
+if($OS.Caption -eq "Microsoft Windows Server 2008 R2 Standard ")
     {
         CheckForPatch -KB "KB4012212" -KB2 "KB4012215"
     }
