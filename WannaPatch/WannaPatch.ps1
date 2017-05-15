@@ -4,9 +4,9 @@ $OS = Get-CimInstance Win32_OperatingSystem
 $OS.Caption
 
 
-function CheckForPatch($KB)
+function CheckForPatch($KB,$KB2)
 {
-if(Get-HotFix $KB -ErrorAction SilentlyContinue)
+if(Get-HotFix $KB -ErrorAction SilentlyContinue -or Get-HotFix $KB2 -ErrorAction SilentlyContinue)
             {
                 Write-Host "Patch Installed"
             }
@@ -20,18 +20,18 @@ if(Get-HotFix $KB -ErrorAction SilentlyContinue)
 
 if($OS.Caption -eq "Microsoft Windows Server 2008 R2 Standard")
     {
-        CheckForPatch("KB3212646")
+        CheckForPatch("KB4012212","KB4012215")
     }
 if($OS.Caption -eq "Microsoft Windows Server 2012 Standard")
     {
-        CheckForPatch("KB3205409")
+        CheckForPatch("KB4012214","KB4012217")
     }
 if($OS.Caption -eq "Microsoft Windows Server 2012 R2 Standard")
     {
-        CheckForPatch("KB3205401")
+        CheckForPatch("KB4012213","KB4012216")
     }
 if($OS.Caption -eq "Microsoft Windows Server 2016 Standard")
     {
-        CheckForPatch("KB3213986")
+        CheckForPatch("KB4013429,KB4013429")
     }
 Sleep 60
