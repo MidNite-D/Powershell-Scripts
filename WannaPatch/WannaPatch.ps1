@@ -19,7 +19,7 @@ if($Monthly.hotfixid -eq $KB -or $Security.hotfixid -eq $KB2)
         Else
             {
                 Write-Host "Patch NOT Installed"
-                Start-Process "https://www.catalog.update.microsoft.com/Search.aspx?q=$KB2"
+                Start-Process "https://www.catalog.update.microsoft.com/Search.aspx?q=$KB"
             }    
 }
 ##  Check for Patch 
