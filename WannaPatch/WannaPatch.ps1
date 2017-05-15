@@ -1,6 +1,6 @@
 ##Check OS
 
-$OS = Get-CimInstance Win32_OperatingSystem
+$OS = Get-WMIObject Win32_OperatingSystem
 $OS.Caption
 
 
