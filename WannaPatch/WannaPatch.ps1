@@ -9,6 +9,7 @@ function CheckForPatch($KB,$KB2,$KB3)
 {
 $KB
 $KB2
+$KB3
 $Monthly=Get-HotFix $KB -ErrorAction SilentlyContinue
 $Security=Get-HotFix $KB2 -ErrorAction SilentlyContinue
 $Previous=Get-HotFix $KB3 -ErrorAction SilentlyContinue
