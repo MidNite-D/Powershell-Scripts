@@ -1,28 +1,39 @@
-﻿
+﻿## --------- Fill this bit in
+$days="-300" # must be nagative number
+$disable="no"  # test for old accounts without disabling - logged to console and file
+$move="no"  # move accounts do the disabled OU?
+$description = "Disabled by AT on $date."
+$CheckFolderSize = "no" # Determine space used by accounts.
+
+$ou = "OU=Staff,DC=nwsilc,DC=local"  # OU to search for accounts
+$disabledOU = "OU=Disabled Accounts,OU=Staff,DC=nwsilc,DC=local" # OU to move disbaled accounts to
+$logfile = "C:\disabled.csv" # make sure script has write permission if you want a log.
+$UserDataPath="E:\staff\staffprivate" # base direcetory for user data.
+$ArchiveDataPath="D:\Users\ARCHIVE\Staff" # directory to archive data to.
+##=====================================================================
+
 
 $date = Get-Date
-## --------- Fill this bit in
-$ou = "OU=2011,OU=Pupils,OU=Curriculum,OU=Users,OU=Ninelands Primary,DC=nps,DC=lan"  # OU to search for accounts
-$disabledOU = "OU=Staff,OU=Users,OU=ARCHIVE,OU=Ninelands,DC=nps,DC=lan" # OU to move disbaled accounts to
-$logfile = "C:\disabled.csv" # make sure script has write permission
-$days="-90" # must be nagative number
-$disable="no"  # test for old accounts without disabling - logged to console and file
-$description = "Disabled by AT on $date."
-$move="no"  # move accounts do the disabled OU?
-$UserDataPath="D:\Users\Staff"
-$ArchiveDataPath="D:\Users\ARCHIVE\Staff"
-##=====================================================================
+$data = 0
 
 write-host -foregroundcolor yellow "Searching for old user accounts."
 
-$finduser = Get-aduser –filter * -SearchBase $ou -properties cn,lastlogondate | 
-Where {$_.LastLogonDate –le [DateTime]::Today.AddDays($days) -and ($_.lastlogondate -ne $null) }
+$finduser = Get-aduser –filter * -SearchBase $ou -properties cn,lastlogondate | Sort-Object CN | Where-Object {$_.LastLogonDate –le [DateTime]::Today.AddDays($days) -and ($_.lastlogondate -ne $null)}
 
 $finduser | export-csv $logfile
 
 foreach($user in $finduser){
-write-host -foregroundcolor red $user.CN
-}
+    $username=$user.SamAccountName
+        if($CheckFolderSize -eq "yes"){
+            $usersize = (Get-ChildItem $UserDataPath\$username -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB
+            $usermb = "{0:N2} MB" -f $usersize
+            write-host -foregroundcolor red $user.CN $usermb
+            $data += $usersize}
+        else {
+            write-host $user.CN -foregroundcolor red}}
+
+write-host "Found "$finduser.count " accounts."
+write-host "{0:N2} MB" -f $data
 
 if($disable -eq "yes")
 {
