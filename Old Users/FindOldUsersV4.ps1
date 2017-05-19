@@ -1,9 +1,9 @@
 ﻿## --------- Fill this bit in
-$days="-300" # must be nagative number
+$days="-120" # must be nagative number
 $disable="no"  # test for old accounts without disabling - logged to console and file
 $move="no"  # move accounts do the disabled OU?
 $description = "Disabled by AT on $date."
-$CheckFolderSize = "no" # Determine space used by accounts.
+$CheckFolderSize = "yes" # Determine space used by accounts.
 
 $ou = "OU=Staff,DC=nwsilc,DC=local"  # OU to search for accounts
 $disabledOU = "OU=Disabled Accounts,OU=Staff,DC=nwsilc,DC=local" # OU to move disbaled accounts to
@@ -25,15 +25,17 @@ $finduser | export-csv $logfile
 foreach($user in $finduser){
     $username=$user.SamAccountName
         if($CheckFolderSize -eq "yes"){
-            $usersize = (Get-ChildItem $UserDataPath\$username -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB
-            $usermb = "{0:N2} MB" -f $usersize
-            write-host -foregroundcolor red $user.CN $usermb
-            $data += $usersize}
+            if(test-path $UserDataPath\$username){
+                $usersize = (Get-ChildItem $UserDataPath\$username -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum -ErrorAction Stop).Sum / 1MB
+                $usermb = "{0:N2} MB" -f $usersize
+                write-host -foregroundcolor red $user.CN $usermb
+                $data += $usersize}}
         else {
             write-host $user.CN -foregroundcolor red}}
 
 write-host "Found "$finduser.count " accounts."
-write-host "{0:N2} MB" -f $data
+$data="{0:N2} MB" -f $data
+write-host $data
 
 if($disable -eq "yes")
 {
