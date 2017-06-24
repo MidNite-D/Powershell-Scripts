@@ -17,14 +17,14 @@ New-ADOrganizationalUnit -Name Staff -Path "OU=Computers,OU=$SchoolName,DC=$doma
 New-ADOrganizationalUnit -Name Pupils -Path "OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
 New-ADOrganizationalUnit -Name Staff -Path "OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
 New-ADOrganizationalUnit -Name Pupils -Path "OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
+New-ADOrganizationalUnit -Name Resource -Path "OU=Groups,OU=$SchoolName,DC=$domain,DC=$tld"
+New-ADOrganizationalUnit -Name User -Path "OU=Groups,OU=$SchoolName,DC=$domain,DC=$tld"
+
 
 New-ADOrganizationalUnit -Name Desktops -Path "OU=Staff,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
-New-ADOrganizationalUnit -Name Laptops -Path "OU=Staff,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
+New-ADOrganizationalUnit -Name Mobile -Path "OU=Staff,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
 New-ADOrganizationalUnit -Name Desktops -Path "OU=Pupils,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
-New-ADOrganizationalUnit -Name Laptops -Path "OU=Pupils,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
-
-New-ADOrganizationalUnit -Name Staff -Path "OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
-New-ADOrganizationalUnit -Name Pupils -Path "OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
+New-ADOrganizationalUnit -Name Mobile -Path "OU=Pupils,OU=Computers,OU=$SchoolName,DC=$domain,DC=$tld"
 
 New-ADOrganizationalUnit -Name Foundation -Path "OU=Pupils,OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
 New-ADOrganizationalUnit -Name KS1 -Path "OU=Pupils,OU=Users,OU=$SchoolName,DC=$domain,DC=$tld"
