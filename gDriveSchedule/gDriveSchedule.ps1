@@ -3,7 +3,7 @@ while($TRUE){
     [int]$hour = get-date -format HH
     $day
     $hour
-    if($day -lt 6){
+    if(($day -lt 6) -and ($day -gt 0)){
         Write-Host "Weekday"
         if(($hour -gt 22) -or ($hour -lt 16)){
             write-host "Outside Peak Hours"
