@@ -24,6 +24,7 @@ while($true){
 $info=cmd /c 'c:\gdrive\gdrive.exe about'
 $result=($info[1] -replace "Used: ","") -replace " MB",""
 $result=($info[1] -replace "Used: ","") -replace " GB",""
+$result=($info[1] -replace "Used: ","") -replace " TB",""
 $postdata = "Upload,Host=APP-01 value="+$Result
 $postdata
 post-influx -data $postdata
