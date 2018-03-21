@@ -17,7 +17,7 @@ $a=get-date
             'Time' = $a 
         }    
     }
-} | Export-Csv -Path VMPingStatus.csv -NoTypeInformation -Append
+} | Export-Csv -Path VMPingStatus.csv -NoTypeInformation -Append -Force
 sleep 5
 }
 
