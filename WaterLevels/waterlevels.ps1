@@ -15,15 +15,18 @@ function post-influx {
 $lastpost=0
 
 while($TRUE){
-  $json = Invoke-WebRequest -Uri https://environment.data.gov.uk/flood-monitoring/id/stations/L1203/measures| ConvertFrom-Json
+  $json = Invoke-WebRequest -UseBasicParsing -Uri https://environment.data.gov.uk/flood-monitoring/id/stations/L1203/measures| ConvertFrom-Json
   $waterlevel=$json.items.latestreading.value.ToString()
-  write-host "Water Level : $waterlevel m"
-  if ($json.items.latestreading.value -ne $lastpost){
+  #write-host "Water Level : $waterlevel m"
+  #if ($json.items.latestreading.value -ne $lastpost){
     $postdata = "WaterLevel,Location=CopleyBridge value=" + $waterlevel
+    $postdata
     post-influx -data $postdata
     $lastpost=$json.items.latestreading.value
-    $ServicePoint.CloseConnectionGroup("")
-  }
+  #}
 start-sleep -Seconds (60*15)
+
+    $ServicePoint.CloseConnectionGroup("")
+
 }
 
