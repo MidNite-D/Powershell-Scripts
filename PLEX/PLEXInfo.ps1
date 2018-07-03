@@ -15,7 +15,7 @@ function post-influx {
 $lastpost=0
 
 while($TRUE){
-    [xml]$status = Invoke-WebRequest -Uri http://app-01:32400/status/sessions?X-Plex-Token=pATdzyRpFfkd2eakVYWQ
+    [xml]$status = Invoke-WebRequest -UseBasicParsing -Uri http://app-01:32400/status/sessions?X-Plex-Token=pATdzyRpFfkd2eakVYWQ
     $activestreams=$status.MediaContainer.Video
     [int]$number=$status.MediaContainer.size
     Write-Host "Current Streams : $number"
@@ -41,5 +41,5 @@ while($TRUE){
     $ServicePoint.CloseConnectionGroup("")
 }
 
-start-sleep -Seconds (30)
+start-sleep -Seconds (60)
     }
